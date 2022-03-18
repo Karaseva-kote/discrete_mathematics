@@ -1,0 +1,33 @@
+1
+
+S 0S 0 >
+S 1 -> S 1 >
+S a -> and1 a <
+S o -> or0 o <
+S _ -> AC _ <
+
+and1 0 -> and0 0 <
+and1 1 -> and1 1 <
+and1 _ -> result1 _ >
+
+and0 0 -> and0 0 <
+and0 1 -> and0 1 <
+and0 _ -> result0 _ >
+
+or0 0 -> or0 0 <
+or0 1 -> or1 1 <
+or0 _ -> result0 _ >
+
+or1 0 -> or1 0 <
+or1 1 -> or1 1 <
+or1 _ -> result1 _ >
+
+result0 0 -> result0 _ >
+result0 1 -> result0 _ >
+result0 o -> S 0 ^
+result0 a -> S 0 ^
+
+result1 0 -> result1 _ >
+result1 1 -> result1 _ >
+result1 o -> S 1 ^
+result1 a -> S 1 ^

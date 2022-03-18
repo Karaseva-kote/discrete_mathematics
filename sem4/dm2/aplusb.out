@@ -1,0 +1,46 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s + -> s + >
+s _ -> get _ <
+s 2 -> s 2 >
+s 3 -> s 3 >
+
+get + -> toStart _ <
+get 0 -> move0 _ <
+get 1 -> move1 _ <
+
+toStart 2 -> toStart 0 <
+toStart 3 -> toStart 1 <
+toStart _ -> ac _ >
+toStart 0 -> toStart 0 <
+toStart 1 -> toStart 1 <
+
+move0 0 -> move0 0 <
+move0 1 -> move0 1 <
+move0 + -> add0 + <
+
+move1 0 -> move1 0 <
+move1 1 -> move1 1 <
+move1 + -> add1 + <
+
+add0 0 -> s 2 ^
+add0 1 -> s 3 ^
+add0 2 -> add0 2 <
+add0 3 -> add0 3 <
+add0 _ -> s 2 ^
+
+add1 0 -> s 3 ^
+add1 1 -> addMore1 2 <
+add1 2 -> add1 2 <
+add1 3 -> add1 3 <
+add1 _ -> s 3 ^
+
+addMore1 0 -> s 1 ^
+addMore1 1 -> addMore1 0 <
+addMore1 _ -> s 1 ^
+

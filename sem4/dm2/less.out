@@ -1,0 +1,72 @@
+start: markLeft
+accept: ac
+reject: rj
+blank: _
+
+markLeft 0 -> toSecond 2 >
+markLeft 1 -> toSecond 3 >
+markLeft < -> toStart < <
+
+toSecond 0 -> toSecond 0 >
+toSecond 1 -> toSecond 1 >
+toSecond < -> toSecond < >
+toSecond _ -> markRight _ <
+toSecond 2 -> markRight 2 <
+toSecond 3 -> markRight 3 <
+
+markRight < -> rj < ^
+markRight 0 -> toFirst 2 <
+markRight 1 -> toFirst 3 <
+
+toFirst 0 -> toFirst 0 <
+toFirst 1 -> toFirst 1 <
+toFirst < -> toFirst < <
+toFirst 2 -> markLeft 2 >
+toFirst 3 -> markLeft 3 >
+
+toStart 2 -> toStart 2 <
+toStart 3 -> toStart 3 <
+toStart _ -> compare _ >
+
+compare 2 -> toSec0 4 >
+compare 3 -> toSec1 5 >
+compare < -> rj < ^
+
+toSec0 2 -> toSec0 2 >
+toSec0 3 -> toSec0 3 >
+toSec0 < -> compare0 < >
+
+toSec1 2 -> toSec1 2 >
+toSec1 3 -> toSec1 3 >
+toSec1 < -> compare1 < >
+
+compare0 1 -> ac 1 ^
+compare0 4 -> compare0 4 >
+compare0 5 -> compare0 5 >
+compare0 2 -> toFir 4 ^
+compare0 3 -> ac 3 ^
+
+compare1 1 -> ac 1 ^
+compare1 4 -> compare1 4 >
+compare1 5
+compare1 5 >
+compare1 3
+toFir 5 ^
+compare1 2
+rj 2 ^
+
+toFir 4
+toFir 4 <
+toFir 5
+toFir 5 <
+toFir <
+get < <
+
+get 2
+get 2 <
+get 3
+get 3 <
+get 4
+compare 4 >
+get 5
+compare 5 >

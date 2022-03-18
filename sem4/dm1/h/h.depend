@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1618727387 source:d:\codeblocks\programm\itmo\sem4\dm1\h\main.cpp
+	<iostream>
+	<vector>
+

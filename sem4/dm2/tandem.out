@@ -1,0 +1,60 @@
+start: markLeft
+accept: ac
+reject: rj
+blank: _
+
+markLeft 0 -> skipLeft 2 >
+markLeft 1 -> skipLeft 3 >
+markLeft 4 -> toStart 4 <
+markLeft 5 -> toStart 5 <
+markLeft _ -> toStart _ <
+
+skipLeft 0 -> skipLeft 0 >
+skipLeft 1 -> skipLeft 1 >
+skipLeft _ -> markRight _ <
+skipLeft 4 -> markRight 4 <
+skipLeft 5 -> markRight 5 <
+
+markRight 0 -> skipRight 4 <
+markRight 1 -> skipRight 5 <
+markRight 2 -> toStart 2  ^
+markRight 3 -> toStart 3  ^
+
+skipRight 0 -> skipRight 0 <
+skipRight 1 -> skipRight 1 <
+skipRight 2 -> markLeft 2 >
+skipRight 3 -> markLeft 3 >
+
+toStart 2 -> toStart 2 <
+toStart 3 -> toStart 3 <
+toStart _ -> check _ >
+
+check 2 -> check0 0 >
+check 3 -> check1 1 >
+
+check0 2 -> check0 2 >
+check0 3 -> check0 3 >
+check0 0 -> check0 0 >
+check0 1 -> check0 1 >
+check0 4 -> skip01 0  ^
+check0 5 -> rj 5  ^
+check0 _ -> rj _  ^
+
+check1 2 -> check1 2 >
+check1 3 -> check1 3 >
+check1 0 -> check1 0 >
+check1 1 -> check1 1 >
+check1 4 -> rj 4  ^
+check1 5 -> skip01 1 ^
+check1 _ -> rj _ ^
+
+skip01 0 -> skip01 0 <
+skip01 1 -> skip01 1 <
+skip01 2 -> skip23 2 ^
+skip01 3 -> skip23 3 ^
+skip01 _ -> ac _ >
+
+skip23 2 -> skip23 2 <
+skip23 3 -> skip23 3 <
+skip23 0 -> check 0 >
+skip23 1 -> check 1 >

@@ -1,0 +1,156 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s * -> s * >
+s _ -> first0 = >
+
+first0 _ -> back 0 <
+
+back = -> m = <
+
+m 0 -> toFir0 2 <
+m 1 -> toFir1 3 <
+m * -> toStart * <
+
+toFir0 0 -> toFir0 0 <
+toFir0 1 -> toFir0 1 <
+toFir0 * -> toFir0 * <
+toFir0 _ -> shift _ >
+toFir0 2 -> toFir0 2 <
+toFir0 3 -> toFir0 3 <
+toFir0 = -> toFir0 = <
+
+shift 1 -> shift1 3 <
+shift 0 -> shift0 2 <
+shift 2 -> shift 2 >
+shift 3 -> shift 3 >
+shift * -> add0 * <
+
+shift1 _ -> shift 1 >
+shift1 2 -> shift 1 >
+shift1 3 -> shift 1 >
+
+shift0 _ -> shift 0 >
+shift0 2 -> shift 0 >
+shift0 3 -> shift 0 >
+
+add0 2 -> next 0 >
+add0 3 -> next 0 >
+
+next * -> next * >
+next 0 -> next 0 >
+next 1 -> next 1 >
+next 2 -> m 2 <
+next 3 -> m 3 <
+
+toFir1 0 -> toFir1 0 <
+toFir1 1 -> toFir1 1 <
+toFir1 * -> sum * <
+
+sum 0 -> toResult0 2 ^
+sum 1 -> toResult1 3 ^
+sum 2 -> sum 2 <
+sum 3 -> sum 3 <
+sum _ -> norm* _ >
+
+toResult0 0 -> toResult0 0 >
+toResult0 1 -> toResult0 1 >
+toResult0 2 -> toResult0 2 >
+toResult0 3 -> toResult0 3 >
+toResult0 * -> toResult0 * >
+toResult0 = -> sum0 = >
+
+toResult1 0 -> toResult1 0 >
+toResult1 1 -> toResult1 1 >
+toResult1 2 -> toResult1 2 >
+toResult1 3 -> toResult1 3 >
+toResult1 * -> toResult1 * >
+toResult1 = -> sum1 = >
+
+sum0 0 -> toFir 2 ^
+sum0 1 -> toFir 3 ^
+sum0 _ -> toFir 2 ^
+sum0 2 -> sum0 2 >
+sum0 3 -> sum0 3 >
+
+sum1 0 -> toFir 3 ^
+sum1 1 -> inc 2 >
+sum1 _ -> toFir 3 ^
+sum1 2 -> sum1 2 >
+sum1 3 -> sum1 3 >
+
+inc 0 -> toFir 1 ^
+inc 1 -> inc 0 >
+inc _ -> toFir 1 ^
+
+toFir 0 -> toFir 0 <
+toFir 1 -> toFir 1 <
+toFir 2 -> toFir 2 <
+toFir 3 -> toFir 3 <
+toFir = -> toFir = <
+toFir * -> sum * <
+
+norm* 2 -> norm* 0 >
+norm* 3 -> norm* 1 >
+norm* * -> skip= * >
+
+skip= 0 -> skip= 0 >
+skip= 1 -> skip= 1 >
+skip= 2 -> skip= 2 >
+skip= 3 -> skip= 3 >
+skip= = -> norm_ = >
+
+norm_ 2 -> norm_ 0 >
+norm_ 3 -> norm_ 1 >
+norm_ 0 -> norm_ 0 >
+norm_ 1 -> norm_ 1 >
+norm_ _ -> toFir0 _ <
+
+toStart 0 -> toStart 0 <
+toStart 1 -> toStart 1 <
+toStart _ -> clear _ >
+
+clear 0 -> clear _ >
+clear 1 -> clear _ >
+clear 2 -> clear _ >
+clear 3 -> clear _ >
+clear * -> clear _ >
+clear = -> reverse _ >
+
+reverse 0 -> reverse 0 >
+reverse 1 -> reverse 1 >
+reverse _ -> get _ <
+
+get 0 -> write0 2 ^
+get 1 -> write1 3 ^
+get 2 -> get 2 <
+get 3 -> get 3 <
+get 4 -> get 4 <
+get 5 -> get 5 <
+get _ -> norm _ >
+
+write0 2 -> write0 2 >
+write0 3 -> write0 3 >
+write0 4 -> write0 4 >
+write0 5 -> write0 5 >
+write0 _ -> get 4 ^
+
+write1 2 -> write1 2 >
+write1 3 -> write1 3 >
+write1 4 -> write1 4 >
+write1 5 -> write1 5 >
+write1 _ -> get 5 ^
+
+norm 2 -> norm _ >
+norm 3 -> norm _ >
+norm 4 -> norm 0 >
+norm 5 -> norm 1 >
+norm _ -> toStart2 _ <
+
+toStart2 0 -> toStart2 0 <
+toStart2 1 -> toStart2 1 <
+toStart2 _ -> ac _ >

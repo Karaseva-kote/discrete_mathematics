@@ -1,0 +1,19 @@
+start: getOpen
+accept: ac
+reject: rj
+blank: _
+
+getOpen ( -> findClose # >
+getOpen # -> getOpen # >
+getOpen ) -> rj )  ^
+getOpen _ -> ac _  ^
+
+findClose ( -> findClose ( >
+findClose ) -> toStart #  ^
+findClose # -> findClose # >
+findClose _ -> rj _  ^
+
+toStart ( -> toStart ( <
+toStart ) -> toStart ) <
+toStart # -> toStart # <
+toStart _ -> getOpen _ >

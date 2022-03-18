@@ -1,0 +1,33 @@
+start: s
+accept: ac
+reject: rj
+blank: _
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s _ -> get _ <
+
+get 0 -> write0 2 ^
+get 1 -> write1 3 ^
+
+write0 2 -> write0 2 >
+write0 3 -> write0 3 >
+write0 _ -> left 2 ^
+
+write1 2 -> write1 2 >
+write1 3 -> write1 3 >
+write1 _ -> left 3 ^
+
+left 2 -> left 2 <
+left 3 -> left 3 <
+left 0 -> write0 2 ^
+left 1 -> write1 3 ^
+left _ -> reverse _ >
+
+reverse 2 -> reverse 0 >
+reverse 3 -> reverse 1 >
+reverse _ -> toStart _ <
+
+toStart 0 -> toStart 0 <
+toStart 1 -> toStart 1 <
+toStart _ -> ac _ >

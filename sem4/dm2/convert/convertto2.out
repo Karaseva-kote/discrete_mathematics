@@ -1,0 +1,70 @@
+start: if0
+accept: ac
+reject: rj
+blank: _
+
+if0 0 -> ac 0 ^
+if0 1 -> s 1 ^
+if0 2 -> s 2 ^
+
+s 0 -> s 0 >
+s 1 -> s 1 >
+s 2 -> s 2 >
+s _ -> get # <
+
+get 0 -> write0 3 ^
+get 1 -> write1 4 ^
+get 2 -> write2 5 ^
+get 3 -> get 3 <
+get 4 -> get 4 <
+get 5 -> get 5 <
+get # -> get # <
+get _ -> delete _ >
+
+write0 3 -> write0 3 >
+write0 4 -> write0 4 >
+write0 5 -> write0 5 >
+write0 # -> write0 # >
+write0 _ -> get 3 ^
+
+write1 3 -> write1 3 >
+write1 4 -> write1 4 >
+write1 5 -> write1 5 >
+write1 # -> write1 # >
+write1 _ -> get 4 ^
+
+write2 3 -> write2 3 >
+write2 4 -> write2 4 >
+write2 5 -> write2 5 >
+write2 # -> write2 # >
+write2 _ -> get 5 ^
+
+delete 3 -> delete _ >
+delete 4 -> delete _ >
+delete 5 -> delete _ >
+delete # -> dec _ >
+
+dec 0 -> dec 0 >
+dec 1 -> dec 1 >
+dec 3 -> dec 5 >
+dec 4 -> if 3 >
+dec 5 -> inc 4 ^
+dec _ -> toStart _ <
+
+toStart 0 -> toStart 0 <
+toStart 1 -> toStart 1 <
+toStart _ -> ac _ >
+
+if _ -> del0 _ <
+if 3 -> inc 3 ^
+if 4 -> inc 4 ^
+if 5 -> inc 5 ^
+
+del0 3 -> inc _ <
+
+inc 3 -> inc 3 <
+inc 4 -> inc 4 <
+inc 5 -> inc 5 <
+inc 0 -> dec 1 ^
+inc 1 -> inc 0 <
+inc _ -> dec 1 ^
